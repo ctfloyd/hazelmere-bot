@@ -1,0 +1,15 @@
+{
+  "log": {
+    "level": "TRACE"
+  },
+  "clients": {
+    "hazelmere": {
+      "host": "https://api.hazelmere.xyz",
+      "timeout": 5000,
+      "retries": 0,
+      "retryWaitMs": 0,
+      "retryMaxWaitMs": 0
+    }
+  },
+  "token": "{{DISCORD_TOKEN}}"
+}

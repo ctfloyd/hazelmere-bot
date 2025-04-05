@@ -1,0 +1,15 @@
+{
+  "log": {
+    "level": "INFO"
+  },
+  "clients": {
+    "hazelmere": {
+      "host": "http://hazelmere-api.railway.internal:8080",
+      "timeout": 10000,
+      "retries": 0,
+      "retryWaitMs": 0,
+      "retryMaxWaitMs": 0
+    }
+  },
+  "token": "{{DISCORD_TOKEN}}"
+}
