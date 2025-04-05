@@ -16,30 +16,6 @@ import (
 	"os/signal"
 )
 
-var OrderedSkills = []api.ActivityType{
-	api.ActivityTypeAttack,
-	api.ActivityTypeHitpoints,
-	api.ActivityTypeMining,
-	api.ActivityTypeStrength,
-	api.ActivityTypeAgility,
-	api.ActivityTypeSmithing,
-	api.ActivityTypeDefence,
-	api.ActivityTypeHerblore,
-	api.ActivityTypeFishing,
-	api.ActivityTypeRanged,
-	api.ActivityTypeThieving,
-	api.ActivityTypeCooking,
-	api.ActivityTypePrayer,
-	api.ActivityTypeCrafting,
-	api.ActivityTypeFiremaking,
-	api.ActivityTypeMagic,
-	api.ActivityTypeFletching,
-	api.ActivityTypeWoodcutting,
-	api.ActivityTypeRunecraft,
-	api.ActivityTypeSlayer,
-	api.ActivityTypeFarming,
-}
-
 func main() {
 	cfg := hz_config.NewConfigWithAutomaticDetection()
 	err := cfg.Read()
@@ -167,7 +143,7 @@ func handleUserUpdate(discord *discordgo.Session, i *discordgo.InteractionCreate
 		gains.Skills[api.ActivityTypeOverall].Amount,
 	)
 
-	for _, skill := range OrderedSkills {
+	for _, skill := range api.AllSkillActivityTypes {
 		emoji, ok := constant.Emojis[skill]
 		if !ok {
 			emoji = constant.Emojis[api.ActivityTypeUnknown]
