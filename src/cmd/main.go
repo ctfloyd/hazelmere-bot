@@ -144,6 +144,10 @@ func handleUserUpdate(discord *discordgo.Session, i *discordgo.InteractionCreate
 	)
 
 	for _, skill := range api.AllSkillActivityTypes {
+		if skill == api.ActivityTypeOverall {
+			continue
+		}
+
 		emoji, ok := constant.Emojis[skill]
 		if !ok {
 			emoji = constant.Emojis[api.ActivityTypeUnknown]
