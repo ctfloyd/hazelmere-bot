@@ -1,4 +1,4 @@
-package internal
+package gain
 
 import (
 	"context"
@@ -14,32 +14,19 @@ import (
 
 var ErrHiscoreTimeout = errors.New("hiscore timeout")
 
-type GainedService struct {
+type GainedService interface {
+	CalculateUserGains(username string, duration int, unit TimeUnit) (UserGains, error)
+}
+type gainedService struct {
 	logger    hz_logger.Logger
 	hazelmere *client.Hazelmere
 }
 
-func NewGainedService(logger hz_logger.Logger, hazelmere *client.Hazelmere) *GainedService {
-	return &GainedService{logger, hazelmere}
+func NewGainedService(logger hz_logger.Logger, hazelmere *client.Hazelmere) GainedService {
+	return &gainedService{logger: logger, hazelmere: hazelmere}
 }
 
-type UserGains struct {
-	Skills map[api.ActivityType]Gain
-	Bosses map[api.ActivityType]Gain
-}
-type Gain struct {
-	Name   string
-	Amount string
-}
-
-type TimeUnit string
-
-const (
-	TimeUnitHours TimeUnit = "hours"
-	TimeUnitDays  TimeUnit = "days"
-)
-
-func (gs *GainedService) CalculateUserGains(username string, duration int, unit TimeUnit) (UserGains, error) {
+func (gs *gainedService) CalculateUserGains(username string, duration int, unit TimeUnit) (UserGains, error) {
 	userResponse, err := gs.hazelmere.User.GetAllUsers()
 	if err != nil {
 		return UserGains{}, err
