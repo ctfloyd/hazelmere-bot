@@ -94,7 +94,7 @@ func (uh *UserUpdateHandler) HandleCommand(session *discordgo.Session, interacti
 	message := CreateMessage(options.Username, options.Time, options.Unit, gains)
 
 	webhook, err := message.ToWebhookEdit()
-	if err != nil {
+	if err == nil {
 		_, _ = session.InteractionResponseEdit(interaction.Interaction, &webhook)
 	}
 
