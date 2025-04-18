@@ -8,8 +8,15 @@
       "timeout": 5000,
       "retries": 0,
       "retryWaitMs": 0,
-      "retryMaxWaitMs": 0
+      "retryMaxWaitMs": 0,
+      "resilient": {
+        "timeout": 20000,
+        "retries": 1,
+        "retryWaitMs": 250,
+        "retryMaxWaitMs": 5000
+      }
     }
   },
-  "token": "{{DISCORD_TOKEN}}"
+  "token": "{{DISCORD_TOKEN}}",
+  "channelId": "1346626332074967134"
 }
