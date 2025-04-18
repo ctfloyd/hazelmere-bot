@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"github.com/bwmarrin/discordgo"
+	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
 	"github.com/ctfloyd/hazelmere-bot/src/internal/discord/command"
 	"github.com/ctfloyd/hazelmere-bot/src/internal/gain"
 	"github.com/ctfloyd/hazelmere-commons/pkg/hz_logger"
@@ -77,7 +78,7 @@ func (uh *UserUpdateHandler) HandleCommand(session *discordgo.Session, interacti
 	gains, err := uh.gainedService.CalculateUserGains(options.Username, options.Time, options.Unit)
 	if err != nil {
 		message := "Something went really wrong."
-		if errors.Is(err, gain.ErrHiscoreTimeout) {
+		if errors.Is(err, gain.ErrHiscoreTimeout) || errors.Is(err, client.ErrHiscoreTimeout) {
 			message = "Could not get a response from Runescape hiscores in time. Blame Jagex."
 		} else {
 			uh.logger.ErrorArgs(context.Background(), "An error occurred while calculating user gains: %v", err)
@@ -91,8 +92,18 @@ func (uh *UserUpdateHandler) HandleCommand(session *discordgo.Session, interacti
 	}
 
 	message := CreateMessage(options.Username, options.Time, options.Unit, gains)
-	webhook := message.ToWebhookEdit()
-	_, _ = session.InteractionResponseEdit(interaction.Interaction, &webhook)
+
+	webhook, err := message.ToWebhookEdit()
+	if err != nil {
+		_, _ = session.InteractionResponseEdit(interaction.Interaction, &webhook)
+	}
+
+	followups := message.ToFollowupMessageCreates()
+	if len(followups) > 0 {
+		for _, followup := range followups {
+			_, _ = session.FollowupMessageCreate(interaction.Interaction, true, &followup)
+		}
+	}
 }
 
 func parseOptions(interaction *discordgo.InteractionCreate) UserUpdateOptions {

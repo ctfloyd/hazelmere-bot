@@ -44,15 +44,11 @@ func (bot *Bot) SendMessageEmbed(channelId string, message command.DiscordMessag
 		return
 	}
 
-	embed, err := message.ToEmbed()
-	if err != nil {
-		bot.logger.ErrorArgs(context.Background(), "Tried to send a message but could not convert to embed: %v", err)
-		return
-	}
-
-	_, err = bot.session.ChannelMessageSendEmbed(channelId, embed)
-	if err != nil {
-		bot.logger.ErrorArgs(context.Background(), "Tried to send a message but could not send embed: %v", err)
+	for _, embed := range message.Embeds {
+		_, err := bot.session.ChannelMessageSendEmbed(channelId, embed)
+		if err != nil {
+			bot.logger.ErrorArgs(context.Background(), "Tried to send a message but could not send embed: %v", err)
+		}
 	}
 }
 

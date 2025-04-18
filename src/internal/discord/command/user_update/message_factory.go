@@ -9,23 +9,72 @@ import (
 	"github.com/ctfloyd/hazelmere-bot/src/internal/gain"
 )
 
+const BossesPerMessage = 25
+
 func CreateMessage(username string, time int, unit gain.TimeUnit, gains gain.UserGains) command.DiscordMessage {
-	return command.DiscordMessage{
-		Embeds: []*discordgo.MessageEmbed{
-			{
-				URL:         "https://api.hazelmere.xyz",
-				Type:        discordgo.EmbedTypeRich,
-				Title:       fmt.Sprintf("%s gains (%d %s)", username, time, unit),
-				Description: buildDescription(username, gains),
-				Color:       2719929,
-			},
-		},
+	descriptions := buildDescriptions(username, gains)
+	message := command.DiscordMessage{
+		Embeds: []*discordgo.MessageEmbed{},
 	}
+	for _, description := range descriptions {
+		message.Embeds = append(message.Embeds, &discordgo.MessageEmbed{
+			URL:         "https://api.hazelmere.xyz",
+			Type:        discordgo.EmbedTypeRich,
+			Title:       fmt.Sprintf("%s gains (%d %s)", username, time, unit),
+			Description: description,
+			Color:       2719929,
+		})
+	}
+	return message
 }
 
-func buildDescription(username string, gains gain.UserGains) string {
+func buildDescriptions(username string, gains gain.UserGains) []string {
+	descriptions := []string{
+		buildSkillDescription(username, gains),
+	}
+
+	bossDescriptions := buildBossDescriptions(gains)
+	for _, description := range bossDescriptions {
+		descriptions = append(descriptions, description)
+	}
+
+	return descriptions
+}
+
+func buildBossDescriptions(gains gain.UserGains) []string {
+	descriptions := []string{}
+
+	description := ""
+
+	count := 0
+	for _, boss := range api.AllBossActivityTypes {
+		if count%BossesPerMessage == 0 && count != 0 {
+			descriptions = append(descriptions, description)
+			description = ""
+		}
+
+		emoji, ok := constant.Emojis[boss]
+		if !ok {
+			continue
+		}
+
+		gain, ok := gains.Bosses[boss]
+		if ok {
+			description += fmt.Sprintf("%s %s\n", emoji, gain.Amount)
+			count += 1
+		}
+	}
+
+	if len(description) > 0 {
+		descriptions = append(descriptions, description)
+	}
+
+	return descriptions
+}
+
+func buildSkillDescription(username string, gains gain.UserGains) string {
 	if len(gains.Skills) == 0 {
-		return fmt.Sprintf("%s is stinky and has not made any gains in the time range!", username)
+		return fmt.Sprintf("%s is stinky and has not made any skill gains in the time range!", username)
 	}
 
 	description := fmt.Sprintf("%s **%s**\n",
@@ -48,6 +97,5 @@ func buildDescription(username string, gains gain.UserGains) string {
 			description += fmt.Sprintf("%s %s\n", emoji, gain.Amount)
 		}
 	}
-
 	return description
 }
