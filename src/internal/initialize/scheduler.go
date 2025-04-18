@@ -4,7 +4,7 @@ import (
 	"github.com/ctfloyd/hazelmere-bot/src/internal/job"
 	"github.com/go-co-op/gocron/v2"
 	"time"
-	_ "time/tzdata"
+	_ "time/tzdata" // required for railway deployments
 )
 
 func InitializeScheduler(
