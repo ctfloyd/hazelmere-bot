@@ -4,14 +4,14 @@ go 1.24.0
 
 require (
 	github.com/bwmarrin/discordgo v0.28.1
-	github.com/ctfloyd/hazelmere-api v0.0.21
-	github.com/ctfloyd/hazelmere-commons v0.0.11
+	github.com/ctfloyd/hazelmere-api v0.0.25
+	github.com/ctfloyd/hazelmere-commons v0.0.16
+	github.com/go-co-op/gocron/v2 v2.16.1
 	golang.org/x/text v0.23.0
 )
 
 require (
 	github.com/go-chi/chi/v5 v5.2.1 // indirect
-	github.com/go-co-op/gocron/v2 v2.16.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
 	github.com/jonboulle/clockwork v0.5.0 // indirect
@@ -24,5 +24,4 @@ require (
 	github.com/rs/zerolog v1.34.0 // indirect
 	golang.org/x/crypto v0.36.0 // indirect
 	golang.org/x/sys v0.31.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

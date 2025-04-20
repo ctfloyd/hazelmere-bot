@@ -9,7 +9,7 @@ import (
 )
 
 func InitializeHazelmereClient(config *hz_config.Config, logger hz_logger.Logger) *client.Hazelmere {
-	return client.NewHazelmere(
+	hz, err := client.NewHazelmere(
 		hz_client.NewHttpClient(
 			hz_client.HttpClientConfig{
 				Host:           config.ValueOrPanic("clients.hazelmere.host"),
@@ -20,11 +20,19 @@ func InitializeHazelmereClient(config *hz_config.Config, logger hz_logger.Logger
 			},
 			func(msg string) { logger.Error(context.Background(), msg) },
 		),
+		client.HazelmereConfig{
+			Token:              config.ValueOrPanic("clients.hazelmere.token"),
+			CallingApplication: "hazelmere-bot",
+		},
 	)
+	if err != nil {
+		panic(err)
+	}
+	return hz
 }
 
 func InitializeHazelmereClientResilient(config *hz_config.Config, logger hz_logger.Logger) *client.Hazelmere {
-	return client.NewHazelmere(
+	hz, err := client.NewHazelmere(
 		hz_client.NewHttpClient(
 			hz_client.HttpClientConfig{
 				Host:           config.ValueOrPanic("clients.hazelmere.host"),
@@ -35,5 +43,13 @@ func InitializeHazelmereClientResilient(config *hz_config.Config, logger hz_logg
 			},
 			func(msg string) { logger.Error(context.Background(), msg) },
 		),
+		client.HazelmereConfig{
+			Token:              config.ValueOrPanic("clients.hazelmere.token"),
+			CallingApplication: "hazelmere-bot",
+		},
 	)
+	if err != nil {
+		panic(err)
+	}
+	return hz
 }

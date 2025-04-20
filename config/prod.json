@@ -14,7 +14,8 @@
         "retries": 1,
         "retryWaitMs": 250,
         "retryMaxWaitMs": 5000
-      }
+      },
+      "token": "{{API_TOKEN}}"
     }
   },
   "token": "{{DISCORD_TOKEN}}",

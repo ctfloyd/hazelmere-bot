@@ -2,7 +2,6 @@ package job
 
 import (
 	"context"
-	"github.com/ctfloyd/hazelmere-api/src/pkg/api"
 	"github.com/ctfloyd/hazelmere-api/src/pkg/client"
 	"github.com/ctfloyd/hazelmere-bot/src/internal/discord"
 	"github.com/ctfloyd/hazelmere-bot/src/internal/discord/command/user_update"
@@ -44,7 +43,7 @@ func (job *UserUpdateJob) Run() {
 	}
 
 	for _, user := range userResponse.Users {
-		if user.TrackingStatus == api.TrackingStatusEnabled {
+		if user.IsTrackingEnabled() {
 			job.logger.InfoArgs(ctx, "Job is calculating gains and posting update for user (%s) on channel (%s).", user.RunescapeName, job.channelId)
 			gains, err := job.gainedService.CalculateUserGains(user.RunescapeName, 1, gain.TimeUnitDays)
 			if err != nil {
