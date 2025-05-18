@@ -3,6 +3,8 @@ github.com/bwmarrin/discordgo v0.28.1/go.mod h1:NJZpH+1AfhIcyQsPeuBKsUtYrRnjkyu0
 github.com/coreos/go-systemd/v22 v22.5.0/go.mod h1:Y58oyj3AT4RCenI/lSvhwexgC+NSVTIJ3seZv2GcEnc=
 github.com/ctfloyd/hazelmere-api v0.0.25 h1:QjTUghLSoi4xvG55c1uANneIWnWZh6JQ4vHqaCx7B3E=
 github.com/ctfloyd/hazelmere-api v0.0.25/go.mod h1:RgHHbKYp40hV1QFV09EkYbejnuWSiT+8G54hcWHymQI=
+github.com/ctfloyd/hazelmere-api v0.0.33 h1:msbdp6IX6zMYvvioWGnyz5m+QAuDRcr7TABk05ki99s=
+github.com/ctfloyd/hazelmere-api v0.0.33/go.mod h1:RgHHbKYp40hV1QFV09EkYbejnuWSiT+8G54hcWHymQI=
 github.com/ctfloyd/hazelmere-commons v0.0.16 h1:IhOMXJO6xyt+13+ATPjfAGwb6eB5CF2xNSqcHjy9EG4=
 github.com/ctfloyd/hazelmere-commons v0.0.16/go.mod h1:Ai01Qc07jqj3xdfVt5HlXJ4JskRutE4hhKpZNH5F28M=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
