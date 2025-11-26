@@ -4,7 +4,7 @@ go 1.24.0
 
 require (
 	github.com/bwmarrin/discordgo v0.28.1
-	github.com/ctfloyd/hazelmere-api v0.0.33
+	github.com/ctfloyd/hazelmere-api v0.0.43
 	github.com/ctfloyd/hazelmere-commons v0.0.16
 	github.com/go-co-op/gocron/v2 v2.16.1
 	golang.org/x/text v0.23.0

@@ -28,6 +28,7 @@ var Emojis = map[api.ActivityType]string{
 	api.ActivityTypeRunecraft:                    "<:runecrafting:1358096028783611962>",
 	api.ActivityTypeHunter:                       "<:hunter:1358095657109553213>",
 	api.ActivityTypeConstruction:                 "<:construction:1358095255202697236>",
+	api.ActivityTypeSailing:                      "<:sailing:1443094852622483576>",
 	api.ActivityTypeLeaguePoints:                 "<:league_points:1358095868590428335>",
 	api.ActivityTypeBountyHunterHunter:           "<:bounty_hunter_hunter:1358095052995301621>",
 	api.ActivityTypeBountyHunterRogue:            "<:bounty_hunter_rogue:1358095060226412687>",
