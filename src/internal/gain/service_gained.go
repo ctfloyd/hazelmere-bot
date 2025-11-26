@@ -84,7 +84,13 @@ func (gs *gainedService) CalculateUserGains(username string, duration int, unit 
 		}
 
 		if oldSkill == nil {
-			continue
+			oldSkill = &api.SkillSnapshot{
+				ActivityType: skill.ActivityType,
+				Name:         skill.Name,
+				Level:        1,
+				Experience:   0,
+				Rank:         0,
+			}
 		}
 
 		if skill.Experience-oldSkill.Experience > 0 {
@@ -105,7 +111,12 @@ func (gs *gainedService) CalculateUserGains(username string, duration int, unit 
 		}
 
 		if oldBoss == nil {
-			continue
+			oldBoss = &api.BossSnapshot{
+				ActivityType: boss.ActivityType,
+				Name:         boss.Name,
+				KillCount:    0,
+				Rank:         0,
+			}
 		}
 
 		if boss.KillCount-oldBoss.KillCount > 0 {
